@@ -1,1 +1,1 @@
-Create DML SQL file
+Move dml.sql to correct folder
