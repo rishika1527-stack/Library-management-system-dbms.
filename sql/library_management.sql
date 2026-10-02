@@ -134,8 +134,8 @@ CREATE TABLE Fine (
 INSERT INTO Publisher
 (publisher_name, country, website)
 VALUES
-('Pearson', 'USA', 'https://www.pearson.com'),
-('Penguin Books', 'UK', 'https://www.penguin.co.uk'),
+('KARMA', 'USA', 'https://www.pearson.com'),
+('THE GREEDY ONE', 'UK', 'https://www.penguin.co.uk'),
 ('Oxford University Press', 'UK', 'https://global.oup.com');
 
 
@@ -183,13 +183,13 @@ INSERT INTO Member
 (first_name, last_name, email, membership_type,
  membership_date, membership_expiry)
 VALUES
-('VENKATA SURYA', 'A', 'venkatasurya@gmail.com',
+('RISHIKA', 'A', 'rishika@gmail.com',
  'Student', '2026-07-01', '2027-06-30'),
 
-('RUPA DEVIKA', 'R', 'rupadevika@gmail.com',
+('KIRAN', 'R', 'Kiran@gmail.com',
  'Student', '2026-07-01', '2027-06-30'),
 
-('KAVYA', 'A', 'kavya@gmail.com',
+('KRISH', 'A', 'krish@gmail.com',
  'Faculty', '2026-07-01', '2027-06-30');
 
 
