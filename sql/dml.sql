@@ -2,46 +2,47 @@
 -- DML - DATA MANIPULATION LANGUAGE
 -- LIBRARY MANAGEMENT SYSTEM
 -- =========================================
-
-
 -- =========================================
--- 1. INSERT DATA INTO PUBLISHER
+-- INSERT 3 PUBLISHERS
 -- =========================================
 
-INSERT INTO Publisher (publisher_id, publisher_name, address)
+INSERT INTO Publisher
+(publisher_name, country, website)
 VALUES
-(1, 'THE KINGDOM ', 'New York'),
-(2, 'Oxford Press', 'London'),
-(3, 'THE GREEDY MAN', 'Boston');
+('KARMA', 'USA', 'https://www.pearson.com'),
+('THE GREEDY ONE ', 'UK', 'https://www.penguin.co.uk'),
+('Oxford University Press', 'UK', 'https://global.oup.com');
 
 
 -- =========================================
--- 2. INSERT DATA INTO AUTHOR
+-- INSERT 3 AUTHORS
 -- =========================================
 
-INSERT INTO Author (author_id, author_name)
+INSERT INTO Author
+(first_name, last_name, nationality)
 VALUES
-(1, 'R.K. Narayan'),
-(2, 'J.K. Rowling'),
-(3, 'George Orwell');
-
+('Abraham', 'Silberschatz', 'American'),
+('Robert', 'Martin', 'American'),
+('Paulo', 'Coelho', 'Brazilian');
 
 -- =========================================
--- 3. INSERT DATA INTO BOOK
+-- INSERT 3 BOOKS
 -- =========================================
 
-INSERT INTO Book (book_id, title, isbn, publisher_id, total_copies)
+INSERT INTO Book
+(title, isbn, total_copies, genre, publication_year, publisher_id)
 VALUES
-(1, 'Malgudi Days', '9780143039659', 1, 3),
-(2, 'Harry Potter', '9780747532743', 2, 4),
-(3, '1984', '9780451524935', 3, 2);
+('Database System Concepts', '9780073523323', 5, 'Technology', 2019, 1),
+('Clean Code', '9780132350884', 3, 'Technology', 2008, 2),
+('The Alchemist', '9780062315007', 4, 'Fiction', 1988, 3);
 
 
 -- =========================================
--- 4. INSERT DATA INTO BOOK_AUTHOR
+-- INSERT 3 BOOK_AUTHOR RECORDS
 -- =========================================
 
-INSERT INTO Book_Author (book_id, author_id)
+INSERT INTO Book_Author
+(book_id, author_id)
 VALUES
 (1, 1),
 (2, 2),
@@ -49,68 +50,95 @@ VALUES
 
 
 -- =========================================
--- 5. INSERT DATA INTO MEMBER
+-- INSERT 3 MEMBERS
 -- =========================================
 
-INSERT INTO Member (member_id, member_name, email, membership_type)
+INSERT INTO Member
+(first_name, last_name, email, membership_type,
+ membership_date, membership_expiry)
 VALUES
-(1, 'Ravi', 'ravi@gmail.com', 'Regular'),
-(2, 'Siri', 'siri@gmail.com', 'Regular'),
-(3, 'Arun', 'arun@gmail.com', 'Premium');
+('RISHIKA', 'A', 'rishika@gmail.com',
+ 'Student', '2026-07-01', '2027-06-30'),
+
+('KIRAN', 'R', 'kiran@gmail.com',
+ 'Student', '2026-07-01', '2027-06-30'),
+
+('KRISH', 'A', 'krish@gmail.com',
+ 'Faculty', '2026-07-01', '2027-06-30');
 
 
 -- =========================================
--- 6. INSERT DATA INTO LOAN
+-- INSERT 3 LOANS
 -- =========================================
 
-INSERT INTO Loan (loan_id, member_id, book_id, issue_date, return_date, status)
+INSERT INTO Loan
+(book_id, member_id, loan_date, due_date, return_date, status)
 VALUES
-(1, 1, 1, '2026-09-01', '2026-09-10', 'Returned'),
-(2, 2, 2, '2026-09-05', NULL, 'Active'),
-(3, 3, 3, '2026-09-07', '2026-09-15', 'Returned');
+(1, 1, '2026-07-01', '2026-07-15', '2026-07-13', 'Returned'),
 
+(2, 2, '2026-07-10', '2026-07-24', NULL, 'Active'),
+
+(3, 3, '2026-07-20', '2026-08-03', '2026-08-10', 'Returned');
 
 -- =========================================
--- 7. INSERT DATA INTO FINE
+-- INSERT 3 FINES
 -- =========================================
 
-INSERT INTO Fine (fine_id, loan_id, fine_amount, payment_status)
+INSERT INTO Fine
+(loan_id, member_id, fine_amount, fine_date, payment_status)
 VALUES
-(1, 1, 20.00, 'Paid'),
-(2, 2, 0.00, 'Not Applicable'),
-(3, 3, 10.00, 'Paid');
+(1, 1, 0.00, '2026-07-13', 'Paid'),
+
+(2, 2, 50.00, '2026-07-24', 'Unpaid'),
+
+(3, 3, 70.00, '2026-08-10', 'Paid');
 
 
--- =========================================
--- 8. UPDATE MEMBER
--- =========================================
+-- =========================================================
+-- 16. DML - UPDATE
+-- =========================================================
 
 UPDATE Member
-SET membership_type = 'Premium'
+SET membership_type = 'Faculty'
 WHERE member_id = 2;
 
 
--- =========================================
--- 9. INSERT NEW BOOK
--- =========================================
+-- =========================================================
+-- 17. CRUD - CREATE / INSERT
+-- =========================================================
 
-INSERT INTO Book (book_id, title, isbn, publisher_id, total_copies)
+INSERT INTO Book
+(title, isbn, total_copies, genre, publication_year, publisher_id)
 VALUES
-(4, 'Python Basics', '9781234567890', 1, 3);
+('Python Basics', '9781234567890', 3,
+ 'Technology', 2025, 1);
 
 
--- =========================================
--- 10. UPDATE BOOK COPIES
--- =========================================
+-- =========================================================
+-- 18. CRUD - READ
+-- =========================================================
+
+SELECT *
+FROM Book;
+
+-- =========================================================
+-- 19. CRUD - UPDATE
+-- =========================================================
 
 UPDATE Book
 SET total_copies = 5
 WHERE book_id = 4;
 
 
--- =========================================
--- 11. DELETE BOOK
--- =========================================
+-- =========================================================
+-- 20. CRUD - DELETE
+-- =========================================================
 
 DELETE FROM Book
 WHERE book_id = 4;
+
+
+
+SELECT *
+FROM Book;
+
