@@ -25,7 +25,7 @@ The project demonstrates important DBMS concepts including:
 - DDL
 - DML
 - DQL
-- CRUD operations
+- CRUD Operations
 - Primary Keys
 - Foreign Keys
 - Constraints
@@ -36,8 +36,6 @@ The project demonstrates important DBMS concepts including:
 ---
 
 ## 🗂️ Database Tables
-
-The database contains the following tables:
 
 | Table | Purpose |
 |---|---|
@@ -76,18 +74,31 @@ The `Book_Author` table handles the relationship between books and authors.
 
 ---
 
+## 👥 Team Members and Responsibilities
+
+| Team Member | Responsibility |
+|---|---|
+| T Rishika | ER Diagram and Database Schema |
+| V Deepika | DDL – Table Creation and Constraints |
+| U Dharani | DML, CRUD Operations, Joins and Aggregate Functions |
+|M.Chandra sekhar reddy| Documentation and Screenshots |
+
+---
+
 ## 📁 Project Structure
 
 ```text
 Library-management-system-dbms/
 │
 ├── diagrams/
-│   ├── README.md
 │   └── er-diagram.png
 │
 ├── docs/
+│   └── Project_Documentation.docx
 │
 ├── screenshots/
+│   ├── query1_output.png
+│   └── query2_output.png
 │
 ├── sql/
 │   ├── ddl.sql
