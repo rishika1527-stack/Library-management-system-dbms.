@@ -10,9 +10,9 @@
 
 INSERT INTO Publisher (publisher_id, publisher_name, address)
 VALUES
-(1, 'Penguin Books', 'New York'),
+(1, 'THE KINGDOM ', 'New York'),
 (2, 'Oxford Press', 'London'),
-(3, 'Pearson', 'Boston');
+(3, 'THE GREEDY MAN', 'Boston');
 
 
 -- =========================================
@@ -55,8 +55,8 @@ VALUES
 INSERT INTO Member (member_id, member_name, email, membership_type)
 VALUES
 (1, 'Ravi', 'ravi@gmail.com', 'Regular'),
-(2, 'Priya', 'priya@gmail.com', 'Regular'),
-(3, 'Arjun', 'arjun@gmail.com', 'Premium');
+(2, 'Siri', 'siri@gmail.com', 'Regular'),
+(3, 'Arun', 'arun@gmail.com', 'Premium');
 
 
 -- =========================================
