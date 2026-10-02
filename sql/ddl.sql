@@ -2,8 +2,10 @@
 -- LIBRARY MANAGEMENT SYSTEM
 -- DDL - Data Definition Language
 -- =========================================
+-- =========================================
+-- 1. REMOVE OLD TABLES
+-- =========================================
 
--- Remove existing tables
 DROP TABLE IF EXISTS Fine;
 DROP TABLE IF EXISTS Loan;
 DROP TABLE IF EXISTS Book_Author;
@@ -14,102 +16,112 @@ DROP TABLE IF EXISTS Publisher;
 
 
 -- =========================================
--- 1. PUBLISHER TABLE
+-- 2. CREATE PUBLISHER TABLE
 -- =========================================
 
 CREATE TABLE Publisher (
-    publisher_id INT PRIMARY KEY,
+    publisher_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     publisher_name VARCHAR(100) NOT NULL,
-    address VARCHAR(200)
+    country VARCHAR(50),
+    website VARCHAR(200)
 );
 
-
 -- =========================================
--- 2. AUTHOR TABLE
+-- 3. CREATE AUTHOR TABLE
 -- =========================================
 
 CREATE TABLE Author (
-    author_id INT PRIMARY KEY,
-    author_name VARCHAR(100) NOT NULL
+    author_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    nationality VARCHAR(50)
 );
 
 
 -- =========================================
--- 3. BOOK TABLE
+-- 4. CREATE BOOK TABLE
 -- =========================================
 
 CREATE TABLE Book (
-    book_id INT PRIMARY KEY,
-    title VARCHAR(150) NOT NULL,
-    isbn VARCHAR(20) UNIQUE,
-    publisher_id INT,
+    book_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    isbn VARCHAR(20) UNIQUE NOT NULL,
     total_copies INT DEFAULT 1,
+    genre VARCHAR(50),
+    publication_year INT,
+    publisher_id INT,
 
     FOREIGN KEY (publisher_id)
-        REFERENCES Publisher(publisher_id)
+    REFERENCES Publisher(publisher_id)
 );
 
-
 -- =========================================
--- 4. BOOK_AUTHOR TABLE
+-- 5. CREATE BOOK_AUTHOR TABLE
 -- =========================================
 
 CREATE TABLE Book_Author (
-    book_id INT,
-    author_id INT,
+    book_id INT NOT NULL,
+    author_id INT NOT NULL,
 
     PRIMARY KEY (book_id, author_id),
 
     FOREIGN KEY (book_id)
-        REFERENCES Book(book_id),
+    REFERENCES Book(book_id),
 
     FOREIGN KEY (author_id)
-        REFERENCES Author(author_id)
+    REFERENCES Author(author_id)
 );
 
 
 -- =========================================
--- 5. MEMBER TABLE
+-- 6. CREATE MEMBER TABLE
 -- =========================================
 
 CREATE TABLE Member (
-    member_id INT PRIMARY KEY,
-    member_name VARCHAR(100) NOT NULL,
+    member_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE,
-    membership_type VARCHAR(50)
+    membership_type VARCHAR(30),
+    membership_date DATE,
+    membership_expiry DATE
 );
 
-
 -- =========================================
--- 6. LOAN TABLE
+-- 7. CREATE LOAN TABLE
 -- =========================================
 
 CREATE TABLE Loan (
-    loan_id INT PRIMARY KEY,
-    member_id INT,
-    book_id INT,
-    issue_date DATE,
+    loan_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    book_id INT NOT NULL,
+    member_id INT NOT NULL,
+    loan_date DATE NOT NULL,
+    due_date DATE NOT NULL,
     return_date DATE,
-    status VARCHAR(20),
-
-    FOREIGN KEY (member_id)
-        REFERENCES Member(member_id),
+    status VARCHAR(20) DEFAULT 'Active',
 
     FOREIGN KEY (book_id)
-        REFERENCES Book(book_id)
+    REFERENCES Book(book_id),
+
+    FOREIGN KEY (member_id)
+    REFERENCES Member(member_id)
 );
 
-
 -- =========================================
--- 7. FINE TABLE
+-- 8. CREATE FINE TABLE
 -- =========================================
 
 CREATE TABLE Fine (
-    fine_id INT PRIMARY KEY,
-    loan_id INT,
-    fine_amount DECIMAL(10,2),
-    payment_status VARCHAR(20),
+    fine_id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    loan_id INT UNIQUE NOT NULL,
+    member_id INT NOT NULL,
+    fine_amount DECIMAL(8,2) CHECK (fine_amount >= 0),
+    fine_date DATE,
+    payment_status VARCHAR(20) DEFAULT 'Unpaid',
 
     FOREIGN KEY (loan_id)
-        REFERENCES Loan(loan_id)
+    REFERENCES Loan(loan_id),
+
+    FOREIGN KEY (member_id)
+    REFERENCES Member(member_id)
 );
