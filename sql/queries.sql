@@ -2,123 +2,130 @@
 -- SQL QUERIES
 -- LIBRARY MANAGEMENT SYSTEM
 -- =========================================
-
-
--- =========================================
--- 1. DISPLAY ALL MEMBERS
--- =========================================
-
-SELECT *
-FROM Member;
-
-
--- =========================================
--- 2. DISPLAY ALL BOOKS
--- =========================================
+-- =========================================================
+-- 21. DQL - SELECT ALL BOOKS
+-- =========================================================
 
 SELECT *
 FROM Book;
 
 
--- =========================================
--- 3. FILTER BOOKS
--- =========================================
+-- =========================================================
+-- 22. DQL - SELECT WITH CONDITION
+-- =========================================================
 
-SELECT *
+SELECT title, genre
 FROM Book
-WHERE total_copies > 2;
+WHERE genre = 'Technology';
 
+-- =========================================================
+-- 23. DQL - FILTERING AND SORTING
+-- =========================================================
 
--- =========================================
--- 4. SORT BOOKS BY TITLE
--- =========================================
-
-SELECT *
+SELECT title, total_copies
 FROM Book
-ORDER BY title;
+WHERE total_copies > 2
+ORDER BY total_copies DESC;
 
 
--- =========================================
--- 5. JOIN MEMBER, LOAN AND BOOK
--- =========================================
+-- =========================================================
+-- 24. DQL - JOIN QUERY
+-- =========================================================
 
 SELECT
-    m.member_id,
-    m.member_name,
-    b.title,
-    l.issue_date,
-    l.return_date,
-    l.status
-FROM Member m
-JOIN Loan l
-    ON m.member_id = l.member_id
-JOIN Book b
-    ON l.book_id = b.book_id;
+    Member.first_name,
+    Book.title,
+    Loan.loan_date,
+    Loan.due_date,
+    Loan.status
+FROM Member
+JOIN Loan
+    ON Member.member_id = Loan.member_id
+JOIN Book
+    ON Loan.book_id = Book.book_id;
 
 
--- =========================================
--- 6. COUNT TOTAL BOOKS
--- =========================================
+-- =========================================================
+-- 25. DQL - AGGREGATE FUNCTION
+-- =========================================================
 
 SELECT COUNT(*) AS total_books
 FROM Book;
 
 
--- =========================================
--- 7. SUM OF TOTAL BOOK COPIES
--- =========================================
+-- =========================================================
+-- 26. DQL - SUM AGGREGATE FUNCTION
+-- =========================================================
 
-SELECT SUM(total_copies) AS total_copies
+SELECT SUM(total_copies) AS total_book_copies
 FROM Book;
 
 
--- =========================================
--- 8. AVERAGE BOOK COPIES
--- =========================================
+-- =========================================================
+-- 27. DQL - AVERAGE
+-- =========================================================
 
 SELECT AVG(total_copies) AS average_copies
 FROM Book;
 
-
--- =========================================
--- 9. TOTAL FINE AMOUNT
--- =========================================
+-- =========================================================
+-- 28. DQL - FINE AGGREGATE
+-- =========================================================
 
 SELECT SUM(fine_amount) AS total_fine
 FROM Fine;
 
 
--- =========================================
--- 10. CREATE LOAN DETAILS VIEW
--- =========================================
+-- =========================================================
+-- 29. DDL - CREATE VIEW
+-- =========================================================
 
-CREATE OR REPLACE VIEW Loan_Details AS
+CREATE VIEW Loan_Details AS
 SELECT
-    m.member_id,
-    m.member_name,
-    b.title,
-    l.issue_date,
-    l.return_date,
-    l.status
-FROM Member m
-JOIN Loan l
-    ON m.member_id = l.member_id
-JOIN Book b
-    ON l.book_id = b.book_id;
+    Loan.loan_id,
+    Member.first_name,
+    Book.title,
+    Loan.loan_date,
+    Loan.due_date,
+    Loan.status
+FROM Loan
+JOIN Member
+    ON Loan.member_id = Member.member_id
+JOIN Book
+    ON Loan.book_id = Book.book_id;
 
 
--- =========================================
--- 11. DISPLAY LOAN DETAILS
--- =========================================
+-- =========================================================
+-- 30. DQL - DISPLAY VIEW
+-- =========================================================
 
 SELECT *
 FROM Loan_Details;
 
 
--- =========================================
--- 12. DISPLAY ACTIVE LOANS
--- =========================================
+-- =========================================================
+-- 31. DQL - VIEW WITH CONDITION
+-- =========================================================
 
 SELECT *
 FROM Loan_Details
 WHERE status = 'Active';
+
+
+-- =========================================================
+-- 32. CHECK ALL TABLES
+-- =========================================================
+
+SELECT * FROM Publisher;
+
+SELECT * FROM Author;
+
+SELECT * FROM Book;
+
+SELECT * FROM Book_Author;
+
+SELECT * FROM Member;
+
+SELECT * FROM Loan;
+
+SELECT * FROM Fine;
