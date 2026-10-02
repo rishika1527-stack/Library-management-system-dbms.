@@ -125,3 +125,23 @@ CREATE TABLE Fine (
     FOREIGN KEY (member_id)
     REFERENCES Member(member_id)
 );
+
+- =========================================================
+-- 29. DDL - CREATE VIEW
+-- =========================================================
+
+CREATE VIEW Loan_Details AS
+SELECT
+    Loan.loan_id,
+    Member.first_name,
+    Book.title,
+    Loan.loan_date,
+    Loan.due_date,
+    Loan.status
+FROM Loan
+JOIN Member
+    ON Loan.member_id = Member.member_id
+JOIN Book
+    ON Loan.book_id = Book.book_id;
+
+
